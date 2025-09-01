@@ -1,0 +1,15 @@
+{
+  "name": "electron-login-app",
+  "version": "1.0.0",
+  "description": "Electron app with MongoDB authentication and role-based login",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "mongodb": "^5.7.0"
+  },
+  "devDependencies": {
+    "electron": "^25.0.0"
+  }
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Stock</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; display: flex; height: 100vh; background-color: #f4f6f9; }
+
+    /* Sidebar */
+    .sidebar { width: 230px; background-color: #1f1f1f; color: #fff; display: flex; flex-direction: column; padding: 20px 10px; }
+    .sidebar h3 { text-align: center; margin-bottom: 30px; font-size: 16px; line-height: 1.4; }
+    .menu-item { display: flex; align-items: center; padding: 12px; margin: 5px 0; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+    .menu-item:hover, .active { background-color: #333; }
+    .submenu { margin-left: 25px; display: none; flex-direction: column; }
+    .submenu .menu-item { font-size: 14px; padding: 10px; }
+    .submenu.show { display: flex; }
+    .menu-item span { margin-left: 10px; }
+    .settings { margin-top: auto; padding: 12px; cursor: pointer; border-radius: 8px; }
+    .settings:hover { background-color: #333; }
+
+    /* Main */
+    .main { flex: 1; padding: 30px; display: flex; flex-direction: column; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+    .topbar h2 { margin: 0; font-size: 22px; }
+    .signout { cursor: pointer; color: #333; font-weight: bold; }
+
+    /* Search Box */
+    .search-box { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 12px; 
+      margin-bottom: 20px; 
+      max-width: 800px; 
+    }
+    .search-box input, .search-box select { 
+      padding: 8px; 
+      border: 1px solid #ccc; 
+      border-radius: 6px; 
+      font-size: 14px; 
+    }
+    .btn-search { 
+      grid-column: span 3; 
+      padding: 10px; 
+      border: none; 
+      border-radius: 8px; 
+      background: #007bff; 
+      color: white; 
+      cursor: pointer; 
+      font-size: 14px; 
+    }
+
+    /* Table */
+    .table-container { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+    th { background: #f8f9fa; }
+    td:last-child { text-align: center; }
+    .action-btn { border: none; background: none; cursor: pointer; margin: 0 5px; font-size: 16px; }
+    .edit { color: #007bff; }
+    .delete { color: red; }
+    .issue { color: green; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Herrmann Research Laboratory</h3>
+    <div class="menu-item" onclick="navigate('dashboard.html')"><span>🏠</span><span>Home</span></div>
+
+    <div class="menu-item" onclick="toggleSubmenu()">
+      <span>📦</span><span>Inventory ▾</span>
+    </div>
+    <div class="submenu show">
+      <div class="menu-item active" onclick="navigate('inventory.html')">📄 View Stock</div>
+      <div class="menu-item" onclick="navigate('add-stock.html')">➕ Add Stock</div>
+    </div>
+    <!-- Employee Section -->
+    <div class="menu-item" onclick="navigate('employee-section.html')"><span>👥</span><span>Employee Section</span></div>
+
+    <!-- Profile -->
+  <div class="menu-item" onclick="navigate('profile.html')">
+    👤 <span>View Profile</span>
+  </div>
+    <div class="settings">⚙️ Settings</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <h2>View Stock</h2>
+      <div class="signout" onclick="logout()">🚪 Sign Out</div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+      <select><option>Categories</option></select>
+      <input type="text" placeholder="Part No.">
+      <select><option>Type</option></select>
+      <input type="text" placeholder="Wattage">
+      <input type="text" placeholder="Description">
+      <input type="text" placeholder="Purpose">
+      <button class="btn-search">Search</button>
+    </div>
+
+    <!-- Stock Table -->
+    <div class="table-container">
+      <h3>Stock List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Material ID</th>
+            <th>Material Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MAT-001</td>
+            <td>Item A</td>
+            <td>50</td>
+            <td>$10.00</td>
+            <td>
+              <button class="action-btn edit">✏️</button>
+              <button class="action-btn delete">🗑️</button>
+              <button class="action-btn issue">➡️</button>
+            </td>
+          </tr>
+          <tr>
+            <td>MAT-002</td>
+            <td>Item B</td>
+            <td>20</td>
+            <td>$15.00</td>
+            <td>
+              <button class="action-btn edit">✏️</button>
+              <button class="action-btn delete">🗑️</button>
+              <button class="action-btn issue">➡️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function logout(){ window.location.href="admin-login.html"; }
+    function navigate(page){ window.location.href=page; }
+    function toggleSubmenu(){
+      document.querySelector(".submenu").classList.toggle("show");
+    }
+  </script>
+</body>
+</html>

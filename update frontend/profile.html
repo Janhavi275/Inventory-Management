@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Profile</title>
+  <style>
+    body { 
+      margin: 0; 
+      font-family: Arial, sans-serif; 
+      display: flex; 
+      height: 100vh; 
+      background-color: #f4f6f9; 
+    }
+
+    /* Sidebar */
+    .sidebar { 
+      width: 230px; 
+      background-color: #1f1f1f; 
+      color: #fff; 
+      display: flex; 
+      flex-direction: column; 
+      padding: 20px 10px; 
+    }
+    .sidebar h3 { 
+      text-align: center; 
+      margin-bottom: 30px; 
+      font-size: 16px; 
+      line-height: 1.4; 
+    }
+    .menu-item { 
+      display: flex; 
+      align-items: center; 
+      padding: 12px; 
+      margin: 5px 0; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      transition: background 0.3s; 
+    }
+    .menu-item:hover, .active { background-color: #333; }
+    .menu-item span { margin-left: 10px; }
+    .settings { margin-top: auto; padding: 12px; cursor: pointer; border-radius: 8px; }
+    .settings:hover { background-color: #333; }
+
+    /* Main */
+    .main { 
+      flex: 1; 
+      padding: 30px; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    .topbar { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 25px; 
+    }
+    .topbar h2 { margin: 0; font-size: 22px; }
+    .signout { cursor: pointer; color: #333; font-weight: bold; }
+
+    /* Profile Box */
+    .profile-box { 
+      background: #fff; 
+      padding: 25px; 
+      border-radius: 12px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+      max-width: 500px; 
+      margin: auto; 
+    }
+    .profile-box h3 { margin-bottom: 20px; font-size: 20px; text-align: center; }
+
+    .profile-item { 
+      margin-bottom: 15px; 
+      display: flex; 
+      justify-content: space-between; 
+      border-bottom: 1px solid #eee; 
+      padding-bottom: 8px; 
+    }
+    .profile-item span:first-child { 
+      font-weight: bold; 
+      color: #444; 
+      min-width: 120px; 
+    }
+    .password-box { display: flex; align-items: center; }
+    .password-text { margin-right: 10px; }
+    .toggle-btn { 
+      cursor: pointer; 
+      background: none; 
+      border: none; 
+      font-size: 14px; 
+      color: #007bff; 
+    }
+
+    /* Button */
+    .btn-edit {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .btn-edit:hover { background: #0056b3; }
+    .sidebar {
+  width: 230px;
+  background-color: #1f1f1f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+}
+.menu-item {
+  padding: 12px;
+  margin: 5px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.menu-item:hover, .active {
+  background-color: #333;
+}
+.submenu {
+  display: none;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.submenu .menu-item {
+  font-size: 14px;
+  padding: 10px;
+}
+.submenu.show {
+  display: flex;
+}
+.settings {
+  margin-top: auto;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.settings:hover { background-color: #333; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+   <!-- Sidebar -->
+<div class="sidebar">
+    <h3>Herrmann Research Laboratory</h3>
+  
+    <!-- Home -->
+    <div class="menu-item" onclick="navigate('dashboard.html')">
+      🏠 <span>Home</span>
+    </div>
+  
+    <!-- Inventory Dropdown -->
+    <div class="menu-item" onclick="toggleSubmenu('inventory-submenu')">
+      📦 <span>Inventory ▾</span>
+    </div>
+    <div id="inventory-submenu" class="submenu">
+      <div class="menu-item" onclick="navigate('inventory.html')">📄 View Stock</div>
+      <div class="menu-item" onclick="navigate('add-stock.html')">➕ Add Stock</div>
+    </div>
+  <!-- Employee Section -->
+  <div>
+  <div class="menu-item" onclick="navigate('employee-section.html')">👥 Employee Section</div>
+  </div>
+  
+    <!-- Profile -->
+    <div class="menu-item" onclick="navigate('profile.html')">
+      👤 <span>View Profile</span>
+    </div>
+  
+    <!-- Settings -->
+    <div class="settings">⚙️ Settings</div>
+  </div>
+  
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="topbar">
+      <h2>Profile Details</h2>
+      <div class="signout" onclick="logout()">🚪 Sign Out</div>
+    </div>
+
+    <!-- Profile Box -->
+    <div class="profile-box">
+      <h3>Admin Profile</h3>
+      <div class="profile-item"><span>Name:</span> <span id="name">Admin name</span></div>
+      <div class="profile-item"><span>Email:</span> <span id="email">abc123@gmail.com</span></div>
+      <div class="profile-item"><span>Phone:</span> <span id="phone">9********7</span></div>
+      <div class="profile-item"><span>Address:</span> <span id="address">ABC</span></div>
+      <div class="profile-item"><span>Username:</span> <span id="username">admin1</span></div>
+      <div class="profile-item">
+        <span>Password:</span>
+        <div class="password-box">
+          <span id="password" class="password-text">********</span>
+          <button class="toggle-btn" onclick="togglePassword()">Show</button>
+        </div>
+      </div>
+
+      <!-- Edit Profile Button -->
+      <button class="btn-edit" onclick="navigate('edit-profile.html')">✏️ Edit Profile</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.clear();
+      window.location.href = "admin-login.html";
+    }
+    function navigate(page) {
+      window.location.href = page;
+    }
+
+    // Load profile data from localStorage (dummy fallback values)
+    document.getElementById("name").innerText = localStorage.getItem("name") || "Admin name";
+    document.getElementById("email").innerText = localStorage.getItem("email") || "abc123@gmail.com";
+    document.getElementById("phone").innerText = localStorage.getItem("phone") || "9********7";
+    document.getElementById("address").innerText = localStorage.getItem("address") || "ABC";
+    document.getElementById("username").innerText = localStorage.getItem("username") || "admin1";
+
+    let actualPassword = localStorage.getItem("password") || "123456";
+    let hidden = true;
+
+    function togglePassword() {
+      const passEl = document.getElementById("password");
+      const btn = document.querySelector(".toggle-btn");
+      if (hidden) {
+        passEl.innerText = actualPassword;
+        btn.innerText = "Hide";
+      } else {
+        passEl.innerText = "********";
+        btn.innerText = "Show";
+      }
+      hidden = !hidden;
+    }
+  </script>
+  <script>
+    function navigate(page) {
+      window.location.href = page;
+    }
+  
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      submenu.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>

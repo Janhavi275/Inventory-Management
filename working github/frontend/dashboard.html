@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Herrmann Research Laboratory</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background: #f9fafc;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #1f2937;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 30px;
+      font-weight: normal;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .nav a {
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .nav a:hover {
+      background: #374151;
+    }
+
+    .settings {
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      color: #d1d5db;
+    }
+
+    .settings:hover {
+      color: white;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .signout {
+      cursor: pointer;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .signout:hover {
+      color: red;
+    }
+
+    .profile {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .profile h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .profile label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #444;
+      font-size: 14px;
+    }
+
+    .profile input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .edit-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .edit-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>Herrmann Research Laboratory</h2>
+      <div class="nav">
+        <a href="#">🏠 Home</a>
+        <a href="#">📦 Inventory</a>
+        <a href="#" id="employeeSection">👤 Employee Section</a>
+      </div>
+    </div>
+    <div class="settings">⚙️ Settings</div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="header">
+      <h2>Profile Details</h2>
+      <div class="signout" onclick="signOut()">🔓 Sign Out</div>
+    </div>
+
+    <div class="profile">
+      <h3>Admin Profile</h3>
+
+      <label>Name :</label>
+      <input type="text" value="Admin name" disabled>
+
+      <label>Email :</label>
+      <input type="email" value="abc123@gmail.com" disabled>
+
+      <label>Phone :</label>
+      <input type="text" value="9********7" disabled>
+
+      <label>Address :</label>
+      <input type="text" value="ABC" disabled>
+
+      <label>Password :</label>
+      <input type="password" value="********" disabled>
+
+      <h3>Bank Details</h3>
+
+      <label>Bank Name :</label>
+      <input type="text" value="PYQ Bank" disabled>
+
+      <label>IFSC Code :</label>
+      <input type="text" value="PI234nmn" disabled>
+
+      <label>Branch :</label>
+      <input type="text" value="STU" disabled>
+
+      <button class="edit-btn">Edit Profile</button>
+    </div>
+  </div>
+
+  <script>
+    // Hide Employee Section for employees
+    const role = localStorage.getItem("role");
+    if (role !== "admin") {
+      document.getElementById("employeeSection").style.display = "none";
+    }
+
+    function signOut() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Herrmann Research Laboratory</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      background: #e0e0e0;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      width: 400px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin: 20px 0;
+      font-size: 16px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .option {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      width: 120px;
+    }
+
+    .option:hover {
+      transform: scale(1.05);
+      background: #dcdcdc;
+    }
+
+    .option img {
+      width: 50px;
+      margin-bottom: 10px;
+    }
+
+    .label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Herrmann Research Laboratory</h1>
+    <h2>Choose login option</h2>
+    <div class="options">
+      <div class="option" onclick="goToAdmin()">
+        <img src="assets/admin.png" alt="Admin">
+        <div class="label">Admin</div>
+      </div>
+      <div class="option" onclick="goToEmployee()">
+        <img src="assets/employee.png" alt="Employee">
+        <div class="label">Employee</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goToAdmin() {
+      window.location.href = "admin-login.html";
+    }
+    function goToEmployee() {
+      window.location.href = "employee-login.html";
+    }
+  </script>
+</body>
+</html>

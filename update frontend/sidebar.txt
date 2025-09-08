@@ -1,0 +1,34 @@
+/* Sidebar */
+    .sidebar { width: 230px; background-color: #1f1f1f; color: #fff; display: flex; flex-direction: column; padding: 20px 10px; }
+    .sidebar h3 { text-align: center; margin-bottom: 30px; font-size: 16px; line-height: 1.4; }
+    .menu-item { display: flex; align-items: center; padding: 12px; margin: 5px 0; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+    .menu-item:hover, .active { background-color: #333; }
+    .submenu { margin-left: 25px; display: none; flex-direction: column; }
+    .submenu .menu-item { font-size: 14px; padding: 10px; }
+    .submenu.show { display: flex; }
+    .menu-item span { margin-left: 10px; }
+    .settings { margin-top: auto; padding: 12px; cursor: pointer; border-radius: 8px; }
+    .settings:hover { background-color: #333; }
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Herrmann Research Laboratory</h3>
+    <div class="menu-item" onclick="navigate('dashboard.html')"><span>🏠</span><span>Home</span></div>
+
+    <div class="menu-item" onclick="toggleSubmenu()">
+      <span>📦</span><span>Inventory ▾</span>
+    </div>
+    <div class="submenu show">
+      <div class="menu-item active" onclick="navigate('inventory.html')">📄 View Stock</div>
+      <div class="menu-item" onclick="navigate('add-stock.html')">➕ Add Stock</div>
+    </div>
+    <!-- Employee Section -->
+    <div class="menu-item" onclick="navigate('employee-section.html')"><span>👥</span><span>Employee Section</span></div>
+
+    <!-- Profile -->
+  <div class="menu-item" onclick="navigate('profile.html')">
+    👤 <span>View Profile</span>
+  </div>
+    <div class="settings">⚙️ Settings</div>
+  </div>
+  

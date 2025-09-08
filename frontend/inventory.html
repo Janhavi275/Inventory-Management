@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Stock</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #1c1e21;
+      color: white;
+      height: 100vh;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .sidebar a {
+      display: block;
+      padding: 10px;
+      margin: 8px 0;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .sidebar a:hover {
+      background: #343a40;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    /* Search bar */
+    .search-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .search-box input, .search-box select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .search-box button {
+      grid-column: span 3;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .search-box button:hover {
+      background: #0056b3;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background: #f1f1f1;
+    }
+    tbody tr:hover {
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Herrmann Research<br>Laboratory</h2>
+    <a href="#">🏠 Home</a>
+    <a href="#">📦 Inventory</a>
+    <a href="#">👨‍💼 Employee Section</a>
+    <a href="#">⚙️ Settings</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <h2>View Stock</h2>
+
+    <!-- Search filters -->
+    <div class="search-box">
+      <select id="category">
+        <option value="">All Categories</option>
+        <option value="capacitor">Capacitor</option>
+        <option value="resistor">Resistor</option>
+        <option value="ic">IC</option>
+      </select>
+      <input type="text" id="partNo" placeholder="Part No.">
+      <input type="text" id="type" placeholder="Type">
+      <input type="text" id="wattage" placeholder="Wattage">
+      <input type="text" id="description" placeholder="Description">
+      <input type="text" id="purpose" placeholder="Purpose">
+      <button onclick="fetchData()">Search</button>
+    </div>
+
+    <!-- Table -->
+    <table id="stockTable">
+  <thead>
+    <tr>
+      <th>Part No</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody id="stockBody"></tbody>
+</table>
+
+  </div>
+
+  <script>
+    async function fetchData() {
+  const category = document.getElementById("category").value.toLowerCase();
+  let url;
+
+  if (!category || category === "all") {
+    // Default = fetch all components
+    url = "http://localhost:5000/api/components/all";
+  } else {
+    // Fetch by specific category
+    url = `http://localhost:5000/api/components/${category}`;
+  }
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error("Error fetching:", res.statusText);
+      return;
+    }
+
+    const data = await res.json();
+    console.log("Fetched Data:", data);
+    renderTable(data);
+  } catch (err) {
+    console.error("Fetch failed:", err);
+  }
+}
+
+function renderTable(data) {
+  const tableBody = document.getElementById("stockBody");
+  tableBody.innerHTML = ""; // Clear previous rows
+
+  if (!data || data.length === 0) {
+    const row = `<tr><td colspan="5" style="text-align:center;">No records found</td></tr>`;
+    tableBody.innerHTML = row;
+    return;
+  }
+
+  data.forEach(item => {
+    const row = `
+      <tr>
+        <td>${item.partNo || "-"}</td>
+        <td>${item.category || "-"}</td>
+        <td>${item.description || "-"}</td>
+        <td>${item.quantity || "-"}</td>
+        <td>${item.price || "-"}</td>
+      </tr>
+    `;
+    tableBody.innerHTML += row;
+  });
+}
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; display: flex; height: 100vh; background-color: #f8f9fa; }
+    .sidebar { width: 220px; background-color: #1f1f1f; color: #fff; display: flex; flex-direction: column; padding: 20px 10px; }
+    .sidebar h3 { text-align: center; margin-bottom: 30px; font-size: 16px; font-weight: normal; }
+    .menu-item { display: flex; align-items: center; padding: 12px; margin: 5px 0; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+    .menu-item:hover, .active { background-color: #333; }
+    .menu-item span { margin-left: 10px; }
+    .settings { margin-top: auto; padding: 12px; cursor: pointer; border-radius: 8px; }
+    .settings:hover { background-color: #333; }
+    .main { flex: 1; padding: 20px; display: flex; flex-direction: column; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .topbar h2 { margin: 0; }
+    .signout { cursor: pointer; color: #333; font-weight: bold; }
+    .cards { display: flex; gap: 20px; margin-bottom: 30px; }
+    .card { flex: 1; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
+    .card h3 { margin: 0; font-size: 18px; color: #666; }
+    .card p { font-size: 22px; font-weight: bold; margin: 10px 0 0; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+    th { background-color: #f4f4f4; }
+    tr:hover { background-color: #f9f9f9; }
+    .sidebar {
+  width: 230px;
+  background-color: #1f1f1f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+}
+.menu-item {
+  padding: 12px;
+  margin: 5px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.menu-item:hover, .active {
+  background-color: #333;
+}
+.submenu {
+  display: none;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.submenu .menu-item {
+  font-size: 14px;
+  padding: 10px;
+}
+.submenu.show {
+  display: flex;
+}
+.settings {
+  margin-top: auto;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.settings:hover { background-color: #333; }
+
+  </style>
+</head>
+<body>
+ <!-- Sidebar -->
+<div class="sidebar">
+  <h3>Herrmann Research Laboratory</h3>
+
+  <!-- Home -->
+  <div class="menu-item" onclick="navigate('dashboard.html')">
+    🏠 <span>Home</span>
+  </div>
+
+  <!-- Inventory Dropdown -->
+  <div class="menu-item" onclick="toggleSubmenu('inventory-submenu')">
+    📦 <span>Inventory ▾</span>
+  </div>
+  <div id="inventory-submenu" class="submenu">
+    <div class="menu-item" onclick="navigate('inventory.html')">📄 View Stock</div>
+    <div class="menu-item" onclick="navigate('add-stock.html')">➕ Add Stock</div>
+  </div>
+<!-- Employee Section -->
+<div>
+<div class="menu-item" onclick="navigate('employee-section.html')">👥 Employee Section</div>
+</div>
+
+  <!-- Profile -->
+  <div class="menu-item" onclick="navigate('profile.html')">
+    👤 <span>View Profile</span>
+  </div>
+
+  <!-- Settings -->
+  <div class="settings">⚙️ Settings</div>
+</div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="topbar">
+      <h2>Home</h2>
+      <div class="signout" onclick="logout()">🚪 Sign Out</div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="cards">
+      <div class="card"><h3>Total Employees</h3><p>125</p></div>
+      <div class="card"><h3>Total Stock Items</h3><p>560</p></div>
+      <div class="card"><h3>Low Stock Alerts</h3><p>15</p></div>
+      <div class="card"><h3>Recent Employee Additions</h3><p>5</p></div>
+    </div>
+
+    <!-- Employee Login Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Employee Name</th><th>Date</th><th>Time</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>John Doe</td><td>2024-04-23</td><td>09:15</td><td>Login</td></tr>
+        <tr><td>Siddhi Kale</td><td>2024-04-22</td><td>17:45</td><td>Logout</td></tr>
+        <tr><td>Swetha Ravi</td><td>2024-04-22</td><td>09:05</td><td>Login</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.clear();
+      window.location.href = "admin-login.html";
+    }
+    function navigate(page) {
+      window.location.href = page;
+    }
+    if (!localStorage.getItem("username") || localStorage.getItem("role") !== "admin") {
+      alert("Unauthorized! Please login as Admin.");
+      window.location.href = "admin-login.html";
+    }
+  </script>
+  <script>
+    function navigate(page) {
+      window.location.href = page;
+    }
+  
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      submenu.classList.toggle("show");
+    }
+  </script>
+  
+  
+</body>
+</html>

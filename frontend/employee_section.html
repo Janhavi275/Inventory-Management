@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee Section</title>
+   <link rel="stylesheet" href="sidebar-style.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #f4f6f9;
+    }
+
+    .sidebar {
+      width: 230px;
+      background-color: #1f1f1f;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 10px;
+    }
+
+    .sidebar h3 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin: 5px 0;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .menu-item:hover, .active {
+      background-color: #333;
+    }
+
+    .submenu {
+      margin-left: 25px;
+      display: none;
+      flex-direction: column;
+    }
+
+    .submenu.show {
+      display: flex;
+    }
+
+    .settings {
+      margin-top: auto;
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .main {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h3>Herrmann Research Laboratory</h3>
+
+    <div class="menu-item" onclick="navigate('dashboard.html')">🏠 Home</div>
+
+    <div class="menu-item" onclick="toggleSubmenu('inventorySubmenu')">📦 Inventory ▾</div>
+    <div id="inventorySubmenu" class="submenu">
+      <div class="menu-item" onclick="navigate('inventory.html')">📄 View Stock</div>
+      <div class="menu-item" onclick="navigate('add-stock.html')">➕ Add Stock</div>
+    </div>
+
+    <div class="menu-item" onclick="toggleSubmenu('employeeSubmenu')">👥 Employee Section ▾</div>
+    <div id="employeeSubmenu" class="submenu">
+      <div class="menu-item active" onclick="navigate('employee_list.html')">📋 Employee List</div>
+      <div class="menu-item" onclick="navigate('add_employee.html')">➕ Add Employee</div>
+    </div>
+
+    <div class="menu-item" onclick="navigate('profile.html')">👤 View Profile</div>
+
+    <div class="settings">⚙️ Settings</div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <h2>Employee Section</h2>
+      <div onclick="logout()">🚪 Sign Out</div>
+    </div>
+
+    <p>Employee Section Content Goes Here</p>
+  </div>
+
+  <script>
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      submenu.classList.toggle('show');
+    }
+
+    function navigate(page) {
+      window.location.href = page;
+    }
+
+    function logout() {
+      window.location.href = 'admin-login.html';
+    }
+  </script>
+</body>
+
+</html>

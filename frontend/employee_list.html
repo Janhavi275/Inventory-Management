@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee List</title>
+  <link rel="stylesheet" href="sidebar-style.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+    }
+    .main {
+      margin-left: 250px; /* space for sidebar */
+      padding: 20px;
+    }
+    h2 {
+      margin: 0;
+    }
+    .filter-container {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .filter-container input,
+    .filter-container select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .filter-container button {
+      padding: 8px 12px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .filter-container button:hover {
+      background: #0056b3;
+    }
+    .table-container {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    th {
+      background: #f1f1f1;
+      font-weight: bold;
+    }
+    .btn {
+      padding: 5px 10px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .btn-danger {
+      background: #dc3545;
+    }
+    .btn:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Herrmann Research Laboratory</h3>
+    <div class="menu-item" onclick="navigate('dashboard.html')">🏠 Home</div>
+
+    <div class="menu-item" onclick="toggleSubmenu('inventorySubmenu')">📦 Inventory ▾</div>
+    <div id="inventorySubmenu" class="submenu">
+      <div class="menu-item" onclick="navigate('inventory.html')">📄 View Stock</div>
+      <div class="menu-item" onclick="navigate('add-stock.html')">➕ Add Stock</div>
+    </div>
+
+    <div class="menu-item" onclick="toggleSubmenu('employeeSubmenu')">👥 Employee Section ▾</div>
+    <div id="employeeSubmenu" class="submenu show">
+      <div class="menu-item active" onclick="navigate('employee_list.html')">📋 Employee List</div>
+      <div class="menu-item" onclick="navigate('add_employee.html')">➕ Add Employee</div>
+    </div>
+
+    <div class="menu-item" onclick="navigate('profile.html')">👤 View Profile</div>
+    <div class="settings">⚙️ Settings</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <h2>Employee List</h2>
+      <div onclick="logout()">🚪 Sign Out</div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-container">
+      <input type="text" id="filterName" placeholder="Name">
+      <input type="text" id="filterEmail" placeholder="Email">
+      <input type="text" id="filterPhone" placeholder="Phone">
+      <input type="text" id="filterDepartment" placeholder="Department">
+      <select id="filterStatus">
+        <option value="">All Status</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+      </select>
+      <button onclick="applyFilters()">🔍 Search</button>
+    </div>
+
+    <!-- Custom Field Buttons -->
+    <div style="margin:10px 0;">
+      <button onclick="addField()" class="btn">+ Add Custom Field</button>
+      <button onclick="deleteField()" class="btn btn-danger">Delete Custom Field</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+      <table id="employeeTable">
+        <thead>
+          <tr id="tableHeader">
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th> 
+            <th>Role</th>
+            <th>Department</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Salary</th>
+            <th>Date Joined</th>
+            <th>Bank Name</th>
+            <th>Account No.</th> 
+            <th>IFSC Code</th> 
+            <th>Bank Branch</th> 
+            <th>Aadhar</th>
+            <th>PAN</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="employeeBody">
+          <!-- Filled dynamically by employee_list.js -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="employee_list.js"></script>
+  <script>
+    function toggleSubmenu(id) { document.getElementById(id).classList.toggle("show"); }
+    function navigate(page) { window.location.href = page; }
+    function logout() { window.location.href = "admin-login.html"; }
+  </script>
+</body>
+</html>
